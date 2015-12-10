@@ -1,0 +1,62 @@
+{% load static %}
+<html>
+<head>
+	<title>Upload</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'logs/combined.css' %}" />
+	<!--link rel="stylesheet" type="text/css" href="css/combined.css" /-->
+	<script src="{% static 'logs/js/combined.js' %}" ></script>
+
+	</head>
+<body>
+<div class="header">
+
+</div>
+<div class="main">
+
+<div class="form" >
+
+<div>
+		<form method="post" enctype="multipart/form-data" class= "form1">
+
+		<!--h1>Log Filtering:
+        <span>Please Choose a Log File.</span>
+		</h1-->
+		<div class="legend" >Upload </div>
+
+		<div>&nbsp;</div>
+		<label for="Log" class="label">Log File Location </label>
+
+			{% csrf_token %}
+			<p>{{ form.non_field_errors }}</p>
+
+			<label>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}
+			<div class="input">
+				{{ form.docfile.errors }}
+				{{ form.docfile }}
+			</div>
+			</label>
+		<input class="bg-green fg-white" type="submit" value="Submit" style="margin-right: 220px;">
+		<div>&nbsp;</div>
+
+		<div>&nbsp;</div>
+		</form>
+
+<!--<form name="set" action = "cgi-bin/generate.py" method = "post">
+<div class="legend" >Upload </div>
+
+<div>&nbsp;</div>
+<label for="Log" class="label">Log File Location </label>
+<input id="log" name="log" required="required" type="file" placeholder="File Location">
+
+
+<input class="bg-green fg-white" type="submit" value="Submit" style="margin-right: 220px;">
+<div>&nbsp;</div>
+
+<div>&nbsp;</div>
+</form>-->
+
+</div>
+
+</div>
+</body>
+</html>

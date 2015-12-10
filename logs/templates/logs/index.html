@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>log filtering</title>
+		<link rel="stylesheet" type="text/css" href="{% static 'logs/style.css' %}" />
+
+	</head>
+
+	<body>
+	<br> <br> <br> <br>
+		<div>
+		<form method="post" enctype="multipart/form-data" class= "form1">
+
+		<h1>Log Filtering
+        <span>Please Choose a Log File.</span>
+		</h1>
+			{% csrf_token %}
+			<p>{{ form.non_field_errors }}</p>
+
+			<label>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}
+			<div class="input">
+				{{ form.docfile.errors }}
+				{{ form.docfile }}
+			</div>
+			</label>
+		<input type="submit" value="Upload" class="button"/>
+
+
+		</form>
+		</div
+
+
+	</body>
+
+</html>

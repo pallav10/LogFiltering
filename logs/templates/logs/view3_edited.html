@@ -1,0 +1,320 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Log View System" />
+  <meta name="author" content="Laborator.co" />
+  
+  <title>
+    View Logs
+  </title>
+  
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="{% static 'logs/css/bootstrap.min.css' %}" /> 
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="{% static 'logs/css/bootstrap-theme.min.css' %}" />
+  <!-- Custom CSS for side bar-->
+  <link href="{% static 'logs/css/simple-sidebar.css' %}" rel="stylesheet">
+  <!-- Fontawesome stylesheet for icons -->
+  <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+  
+   <link rel="stylesheet" href="{% static 'logs/bower_components/angular-chart.js/dist/angular-chart.css' %}" />
+  
+   <link rel="stylesheet" type="text/css" href="{% static 'logs/css/style.css' %}" />
+  
+  </head>
+  <body class="page-body  page-fade" ng-controller="MainController" >
+    <div id="wrapper">
+      
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper" style="  background: #303641;color: #aaabae;">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+            <a href="#" style="font-size: 30px;">
+              View Logs
+            </a>
+          </li>
+          <li>
+            <div class="right-inner-addon">
+              <i class="icon-search">
+              </i>
+              <input type="search" class="form-control" placeholder="Search" />
+            </div>
+          </li>
+          <li class="search_dropdown">
+            <select id="top" class="form-control">
+              <option value="10">
+                Top 10 
+              </option>
+              <option value="20">
+                Top 20
+              </option>
+              <option value="30">
+                Top 30
+              </option>
+              <option value="50">
+                Top 50
+              </option>
+              <option value="100">
+                Top 100
+              </option>
+            </select>
+          </li>
+          <li>
+            <ul style="list-style:none;">
+              <li>
+                <input type="checkbox" ng-model="user" id="cb_users" checked name="checkbox">
+                <label>
+                 User
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" ng-model="mime"  id="cb_mime" checked name="checkbox">
+                <label>
+                  Mime
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" ng-model="profiles" id="cb_profiles" name="checkbox">
+                <label>
+                  Profile
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" ng-model="Status" id="cb_status" name="checkbox">
+                <label>
+                  Status
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" ng-model="filter" id="cb_filters" name="checkbox">
+                <label>
+                  Filters
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" ng-model="website" id="cb_websites" checked name="checkbox">
+                <label>
+                  Websites
+                </label>
+              </li>
+            </ul>
+            
+          </li>
+          <li>
+            <div class="search_dropdown">
+              <select class="form-control">
+                <option value="#">
+                  Search
+                </option>
+                <option>
+                  By User
+                </option>
+                <option>
+                  By Website
+                </option>
+                <option>
+                  By Data Used
+                </option>
+                
+              </select>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- /#sidebar-wrapper -->
+      
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <h1>
+                Home
+              </h1>
+              <a href="#menu-toggle" class="btn btn-info" id="menu-toggle">
+                Menu
+              </a>
+              <a href="index.html" class="btn btn-primary">
+                Main
+              </a>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-lg-6">
+             <tabset justified="true">
+                <tab heading="Line Chart" active="tabs[0].active">
+                  <canvas ng-if="tabs[0].active == true && user" id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick"></canvas>
+                  <canvas ng-if="tabs[0].active == true && mime" id="line" class="chart chart-line" data="data1" labels="labels" legend="true" series="series" click="onClick"></canvas>
+                  <canvas ng-if="tabs[0].active == true && profiles" id="line" class="chart chart-line" data="data2" labels="labels" legend="true" series="series" click="onClick"></canvas>
+                  <canvas ng-if="tabs[0].active == true && Status" id="line" class="chart chart-line" data="data3" labels="labels" legend="true" series="series" click="onClick"></canvas>
+                  <canvas ng-if="tabs[0].active == true && filter" id="line" class="chart chart-line" data="data4" labels="labels" legend="true" series="series" click="onClick"></canvas>
+                </tab>
+
+                <tab heading="Pie Chart" ng-controller="PieController" active="tabs[1].active">
+                  <canvas ng-if="tabs[1].active == true && user" id="pie" class="chart chart-pie" data="data" labels="labels"></canvas>
+                  <canvas ng-if="tabs[1].active == true && mime" id="pie" class="chart chart-pie" data="data1" labels="labels1"></canvas>
+                  <canvas ng-if="tabs[1].active == true && profiles" id="pie" class="chart chart-pie" data="data2" labels="labels2"></canvas>
+                  <canvas ng-if="tabs[1].active == true && Status" id="pie" class="chart chart-pie" data="data3" labels="labels3"></canvas>
+                  <canvas ng-if="tabs[1].active == true && filter" id="pie" class="chart chart-pie" data="data4" labels="labels4"></canvas> 
+                </tab>
+                
+                <tab heading="Bar Chart" ng-controller="BarController" active="tabs[2].active">
+                  <canvas ng-if="tabs[2].active == true && user" id="bar" class="chart chart-bar" data="data" labels="labels"></canvas> 
+                  <canvas ng-if="tabs[2].active == true && mime" id="bar" class="chart chart-bar" data="data1" labels="labels1"></canvas>
+                  <canvas ng-if="tabs[2].active == true && profiles" id="bar" class="chart chart-bar" data="data2" labels="labels2"></canvas>
+                  <canvas ng-if="tabs[2].active == true && Status" id="bar" class="chart chart-bar" series="series" data="data3" labels="labels3"></canvas>
+                  <canvas ng-if="tabs[2].active == true && filter" id="bar" class="chart chart-bar" series="series" data="data4" labels="labels4"></canvas>
+                </tab>
+            </tabset>
+            </div>
+            <div class="col-lg-6">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th data-hide="phone">
+                      Websites
+                    </th>
+                    <th>
+                      Browser
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="odd gradeX">
+                    <td>
+                      Trident
+                    </td>
+                    <td>
+                      Internet Explorer 4.0
+                    </td>
+                    
+                  </tr>
+                  <tr class="even gradeC">
+                    <td>
+                      Trident
+                    </td>
+                    <td>
+                      Internet Explorer 5.0
+                    </td>
+                    
+                  </tr>
+                  <tr class="odd gradeA">
+                    <td>
+                      Trident
+                    </td>
+                    <td>
+                      Internet Explorer 5.5
+                    </td>
+                    
+                  </tr>
+                  <tr class="even gradeA">
+                    <td>
+                      Trident
+                    </td>
+                    <td>
+                      Internet Explorer 6
+                    </td>
+                    
+                  </tr>
+                  <tr class="odd gradeA">
+                    <td>
+                      Trident
+                    </td>
+                    <td>
+                      Internet Explorer 7
+                    </td>
+                    
+                  </tr>
+                  <tr class="odd gradeX">
+                    <td>
+                      Trident
+                    </td>
+                    <td>
+                      Internet Explorer 4.0
+                    </td>
+                    
+                  </tr>
+                  <tr class="even gradeC">
+                    <td>
+                      Trident
+                    </td>
+                    <td>
+                      Internet Explorer 5.0
+                    </td>
+                    
+                  </tr>
+                  <tr class="odd gradeA">
+                    <td>
+                      Trident
+                    </td>
+                    <td>
+                      Internet Explorer 5.5
+                    </td>
+                    
+                  </tr>
+                  <tr class="even gradeA">
+                    <td>
+                      Trident
+                    </td>
+                    <td>
+                      Internet Explorer 6
+                    </td>
+                    
+                  </tr>
+                  <tr class="odd gradeA">
+                    <td>
+                      Trident
+                    </td>
+                    <td>
+                      Internet Explorer 7
+                    </td>
+                    
+                  </tr>
+                  
+                  
+                </tbody>
+                
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /#page-content-wrapper -->
+      
+    </div>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="{% static 'logs/bower_components/jquery.min.js' %}"></script>
+  <script src="{% static 'logs/bower_components/angular/angular.js' %}"></script>
+  <script src="{% static 'logs/bower_components/Chart.js/Chart.min.js' %}"></script>
+  <script src="{% static 'logs/bower_components/angular-chart.js/dist/angular-chart.js' %}"></script>
+  <script src="{% static 'logs/bower_components/bootstrap.min.js' %}"></script>
+  <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
+  <script src="{% static 'logs/js/app.js' %}"></script>
+  
+  <!-- styling which overrides defaults must be loaded after "angular-charts.js" -->
+  <style>
+    .ac-tooltip {
+      color: black;
+      border: 2px solid rgba(200,200,0,0.8);
+      background-color: rgba(200,200,0,0.5);
+    }
+    #chart1 .ac-legend-box {
+      border-radius: 10px;
+    }
+  </style>
+  
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    }
+                           );
+  </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+	"X": "Users",
+	"Y": "Hits",
+
+	"xdata" : {"0":"pallav","1":"jayesh","2":"yash","3":"jenny"},
+	"ydata" : {"0":"10","1":"20","2":"30","3":"56565"},
+
+	"mimedatax" : {"0":"pallav","1":"jayesh","2":"yash","3":"jenny"},
+	"mimedatay" : {"0":"500","1":"250","2":"3000","3":"56565"},
+
+	"profiledatax" : {"0":"pallav","1":"jayesh","2":"yash","3":"jenny"},
+	"profiledatay" : {"0":"1685","1":"2546","2":"75698","3":"56565"},
+
+	"statusdatax" : {"0":"pallav","1":"jayesh","2":"yash","3":"jenny"},
+	"statusdatay" : {"0":"25685","1":"14546","2":"9875","3":"56565"},
+
+	"filterdatax" : {"0":"pallav","1":"jayesh","2":"yash"},
+	"filterdatay" : {"0":"9754","1":"1586","2":"1238","3":"56565"}
+
+}
